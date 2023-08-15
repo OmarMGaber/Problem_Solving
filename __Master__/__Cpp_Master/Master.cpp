@@ -1,12 +1,10 @@
 #include <bits/stdc++.h>
-#include <fstream>
-#include <string>
 
 #ifndef ONLINE_JUDGE
 
 //#include "LeetCode.cpp"
 //#include "LeetCode.h"
-#include "Useful_Subprograms.cpp"
+//#include "Useful_Subprograms.cpp"
 
 #endif
 
@@ -27,6 +25,14 @@ typedef unsigned long long ull;
 #define vllll vector<pair<long long,long long>>
 #define vstr  vector<string>
 
+#define uset  unordered_set
+#define umap  unordered_map
+#define umset unordered_multiset
+#define ummap unordered_multimap
+
+#define yes  cout << "YES" << el;
+#define no  cout << "NO" << el;
+
 #define tc ll t;cin >> t;while (t--)
 #define ReadArray(v, n) loop(n - 1) { cin >> v[i]; }
 
@@ -35,11 +41,18 @@ typedef unsigned long long ull;
 
 void InputOutput();
 
+double distanceBetween2Points(double &x1, double &y1, double &x2, double &y2) {
+    return sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
+}
+
 int main() {
     InputOutput();
 
+    
+
     OmarMGaber;
 }
+
 
 void fastIO() {
     ios_base::sync_with_stdio(false);
@@ -66,5 +79,3 @@ void InputOutput() {
     fileIO();
 #endif
 }
-
-
