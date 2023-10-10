@@ -1,2 +1,2 @@
-# Codeforces-problems-solution
-My own Codeforces problems solution
+# Problem Solving Lounge
+Some of my problems solutions from different online judges/contests.
