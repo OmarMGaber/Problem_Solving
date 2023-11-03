@@ -286,3 +286,235 @@ struct pqComp {
 double distanceBetween2Points(double &x1, double &y1, double &x2, double &y2) {
     return sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
 }
+
+vector<int> sieve(int n) {
+    vector<bool> isPrime(n + 1, true);
+    vector<int> primes;
+
+    for (int p = 2; p * p <= n; ++p) {
+        if (isPrime[p]) {
+            for (int i = p * p; i <= n; i += p) {
+                isPrime[i] = false;
+            }
+        }
+    }
+
+    for (int p = 2; p <= n; ++p) {
+        if (isPrime[p]) {
+            primes.push_back(p);
+        }
+    }
+
+    return primes;
+}
+
+bool isValidBrackets(string &str) {
+    stack<char> s;
+    loop(str.length() - 1) {
+        if (str[i] == '(')
+            s.push(str[i]);
+        else {
+            if (s.empty())
+                return false;
+            s.pop();
+        }
+    }
+    return s.empty();
+}
+
+bool isValidParentheses(string &s) {
+    stack<char> parentheses;
+    map<char, char> closeToOpenMap;
+    closeToOpenMap[')'] = '(';
+    closeToOpenMap[']'] = '[';
+    closeToOpenMap['}'] = '{';
+
+    for (char p: s) {
+        if (p == '(' || p == '[' || p == '{')
+            parentheses.push(p);
+        else if (p == ')' || p == ']' || p == '}') {
+            if (parentheses.empty())
+                return false;
+
+            if (parentheses.top() == closeToOpenMap[p])
+                parentheses.pop();
+            else
+                return false;
+        }
+    }
+    return parentheses.empty();
+}
+
+void generateLuckyNums(int num, int limit, vector<int> &luckyNums) {
+    if (num <= limit) {
+        luckyNums.push_back(num);
+        generateLuckyNums(num * 10 + 4, limit, luckyNums);
+        generateLuckyNums(num * 10 + 7, limit, luckyNums);
+    }
+}
+
+ll sumOdd(ll n) {
+    ll terms = (n + 1) / 2;
+    ll sum = terms * terms;
+    return sum;
+}
+
+struct Trie {
+    Trie *child[MAX_CHAR]{};
+    bool isWord;
+
+    Trie() {
+        memset(child, 0, sizeof(child));
+        isWord = false;
+    }
+
+    void insert(char *str) {
+        if (*str == '\0') {
+            isWord = true;
+            return;
+        }
+        int current = *str - 'a';
+        if (!child[current])
+            child[current] = new Trie();
+        child[current]->insert(str + 1);
+    }
+};
+
+#define MAX_CHAR 26
+
+struct TrieNode {
+    TrieNode *pTrieNode[MAX_CHAR]{};
+    bool isWord;
+
+    TrieNode() {
+        isWord = false;
+        fill(pTrieNode, pTrieNode + 26, (TrieNode *) NULL);
+    }
+
+    virtual ~TrieNode() = default;
+};
+
+class Trie {
+private:
+    TrieNode *root;
+public:
+    Trie() {
+        root = new TrieNode();
+    }
+
+    virtual ~Trie() = default;
+
+    TrieNode *getTrieNode() {
+        return this->root;
+    }
+
+    void insert(const string &word) {
+        TrieNode *current = root;
+        for (char c: word) {
+            int i = c - 'a';
+            if (current->pTrieNode[i] == nullptr)
+                current->pTrieNode[i] = new TrieNode();
+            current = current->pTrieNode[i];
+        }
+        current->isWord = true;
+    }
+
+    bool search(const string &word) {
+        TrieNode *current = root;
+        int ch = 0;
+        for (char c: word) {
+            ch = c - 'a';
+            if (current->pTrieNode[ch] == nullptr)
+                return false;
+            current = current->pTrieNode[ch];
+        }
+        return current->isWord;
+    }
+
+    bool startsWith(const string &prefix) {
+        TrieNode *current = root;
+        int ch = 0;
+        for (char c: prefix) {
+            ch = c - 'a';
+            if (current->pTrieNode[ch] == nullptr)
+                return false;
+            current = current->pTrieNode[ch];
+        }
+        return true;
+    }
+};
+
+template<typename T>
+class Vector {
+private:
+    T *arr;
+    int size{};
+    int current_size{};
+
+public:
+    Vector() {
+        this->size = 10;
+        this->current_size = 0;
+        this->arr = new T[this->size];
+    }
+
+    explicit Vector(int _size) {
+        this->size = _size;
+        this->current_size = 0;
+        this->arr = new T[this->size];
+    }
+
+    Vector(int _size, T filler) {
+        this->size = _size;
+        this->current_size = _size;
+        this->arr = new T[this->size];
+        fill(this->arr, this->arr + this->size, filler);
+    }
+
+    void push_back(T elem) {
+        if (this->current_size == this->size) {
+            int new_size = this->size * 2;
+            T *newArr = new T[new_size];
+
+            for (int i = 0; i < this->size; ++i)
+                newArr[i] = this->arr[i];
+
+            delete[] this->arr;
+            this->arr = newArr;
+            this->size = new_size;
+        }
+        this->arr[this->current_size] = elem;
+        this->current_size++;
+    }
+
+    void print() {
+        for (int i = 0; i < this->current_size; ++i)
+            cout << this->arr[i] << ' ';
+        cout << '\n';
+    }
+
+    T &operator[](int index) {
+        if (index < 0 || index >= this->current_size) {
+            throw std::out_of_range("Index out of range");
+        }
+        return this->arr[index];
+    }
+
+    T *begin() {
+        return this->arr;
+    }
+
+    T *end() {
+        return this->arr + this->current_size;
+    }
+
+    ~Vector() {
+        delete[] this->arr;
+    }
+};
+
+
+bool isPerfectSquare(int n) {
+    double root = sqrt(n);
+    return (root - (double) ((int) root) == 0);
+}
