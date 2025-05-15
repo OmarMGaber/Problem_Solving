@@ -1,7 +1,7 @@
 #include "testlib.h"
 #include <bits/stdc++.h>
 
-// Use it for custom testcases problems, Codeforce Polyglot provides already a checker templates for comman testcases styles
+// Use it for custom testcases problems, Codeforce Polyglon provides already a checker templates for common testcases styles
 
 using namespace std;
 
