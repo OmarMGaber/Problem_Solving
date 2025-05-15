@@ -20,25 +20,43 @@ void printStructure(T &arr) {
     cout << '\n';
 }
 
-//#define TESTCASES
-int run_test_case(int testNum) {
+short test_case = 1;
 
-    cout << testNum << el;
+int run_test_case() {
 
-    return INT_MAX;
+    int s, d, k;
+    cin >> s >> d >> k;
+
+    while (s && d) {
+        k -= 3;
+        d--;
+        s--;
+    }
+    while (s > 0) {
+        k -= 2;
+        s -= 2;
+    }
+
+    while (d > 0) {
+        k -= 3;
+        d -= 2;
+    }
+    if (k <= 0)
+        cout << "Case #" << test_case++ << ": YES" << el;
+    else
+        cout << "Case #" << test_case++ << ": NO" << el;
+
+    return 0;
 }
 
 int main() {
     InputOutput();
 
-    int TEST_CASES = 1, testNum = 1;
-
-#ifdef TESTCASES
+    int TEST_CASES = 1;
     cin >> TEST_CASES;
-#endif
 
-    for (; testNum <= TEST_CASES;)
-        run_test_case(testNum++);
+    while (TEST_CASES--)
+        run_test_case();
 
     OmarMGaber;
 }

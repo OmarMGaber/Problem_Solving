@@ -20,25 +20,27 @@ void printStructure(T &arr) {
     cout << '\n';
 }
 
-//#define TESTCASES
-int run_test_case(int testNum) {
-
-    cout << testNum << el;
-
-    return INT_MAX;
+void run_test_case() {
+    ll n;
+    cin >> n;
+    cout << n << ' ';
+    while (n != 1) {
+        if (n & 1)
+            n = 3 * n + 1;
+        else
+            n /= 2;
+        cout << n << ' ';
+    }
 }
 
 int main() {
     InputOutput();
 
-    int TEST_CASES = 1, testNum = 1;
+    int TEST_CASES = 1;
+//    cin >> TEST_CASES;
 
-#ifdef TESTCASES
-    cin >> TEST_CASES;
-#endif
-
-    for (; testNum <= TEST_CASES;)
-        run_test_case(testNum++);
+    while (TEST_CASES--)
+        run_test_case();
 
     OmarMGaber;
 }

@@ -1,0 +1,18 @@
+*.hash
+*.out
+*.in
+*.exe
+*.deb
+*.log
+*.test
+*.local
+*.o
+*.omarmrc
+
+bin
+log
+local
+
+# problem id
+100-0-*
+100-1-*
