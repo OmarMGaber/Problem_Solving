@@ -1,6 +1,4 @@
 *.hash
-*.out
-*.in
 *.exe
 *.deb
 *.log
@@ -12,6 +10,7 @@
 bin
 log
 local
+hashes
 
 # problem id
 100-0-*

@@ -27,7 +27,25 @@ test:
 	@./build.sh $(p)
 	@echo "🔧 Running generator with ARGS=$(ARGS)..."
 	@$(p)/bin/gen $(ARGS) > $(p)/bin/input.txt
-	@echo "✅ Input:" && ./print.$(SUFFIX) $(p)/bin/input.txt
-	@echo "🔍 Running validator..." && $(p)/bin/validator < $(p)/bin/input.txt
-	@echo "🚀 Running solution..." && $(p)/bin/sol < $(p)/bin/input.txt > $(p)/bin/output.txt
-	@echo "✅ Output:" && ./print.$(SUFFIX) $(p)/bin/output.txt
+	@echo "✅ Input (generated):" && ./print.$(SUFFIX) $(p)/bin/input.txt
+	
+	@echo "🔍 Running validator (generated)..."
+	@$(p)/bin/validator < $(p)/bin/input.txt
+
+	@echo "🚀 Running solution (generated)..."
+	@$(p)/bin/sol < $(p)/bin/input.txt > $(p)/bin/output.txt
+	@echo "✅ Output (generated):" && ./print.$(SUFFIX) $(p)/bin/output.txt
+
+	@echo "🔧 Running all manual testcases (*.in)..."
+	@sh -c 'if ls $(p)/tc/*.in 1> /dev/null 2>&1; then \
+		for testcase in $(p)/tc/*.in; do \
+			echo "=== Running testcase $$testcase ==="; \
+			$(p)/bin/validator < $$testcase || echo "Validator failed on $$testcase"; \
+			$(p)/bin/sol < $$testcase > $(p)/bin/output.txt; \
+			echo "Output:"; \
+			./print.$(SUFFIX) $(p)/bin/output.txt; \
+			echo; \
+		done; \
+	else \
+		echo "No manual testcases (*.in) found in $(p)/tc/"; \
+	fi'
